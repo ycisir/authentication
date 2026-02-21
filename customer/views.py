@@ -2,15 +2,15 @@ from django.shortcuts import render, redirect
 from customer.forms import CustomerPasswordChangeForm
 from django.contrib import messages
 from django.contrib.auth import logout
-from django.contrib.auth.decorators import login_required
+from core.decorators import login_and_role_required
 
 
-@login_required
+@login_and_role_required('customer')
 def customer_dashboard(request):
     return render(request, 'customer/dashboard.html')
 
 
-@login_required
+@login_and_role_required('customer')
 def customer_password_change(request):
     if request.method == 'POST':
         form = CustomerPasswordChangeForm(user=request.user, data=request.POST)

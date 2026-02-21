@@ -2,14 +2,14 @@ from django.shortcuts import render, redirect
 from seller.forms import SellerPasswordChangeForm
 from django.contrib import messages
 from django.contrib.auth import logout
-from django.contrib.auth.decorators import login_required
+from core.decorators import login_and_role_required
 
-@login_required
+@login_and_role_required('seller')
 def seller_dashboard(request):
     return render(request, 'seller/dashboard.html')
 
 
-@login_required
+@login_and_role_required('seller')
 def seller_password_change(request):
     if request.method == 'POST':
         form = SellerPasswordChangeForm(user=request.user, data=request.POST)

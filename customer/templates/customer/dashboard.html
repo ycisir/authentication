@@ -7,5 +7,6 @@
 {% block content %}
     {% if request.user.is_authenticated %}
         <h1>Hey, {{request.user.name}}</h1>
+        <p>Customer Dashboard</p>
     {% endif %}
 {% endblock content %}
