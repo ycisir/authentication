@@ -26,7 +26,18 @@ def register_user(request):
             user = form.save(commit=False)
             user.set_password(form.cleaned_data.get('password'))
             user.is_active = False
+
+            # role base registration logic here
+            role = request.POST.get('role')
+            if role == 'seller':
+                user.is_seller = True
+                user.is_customer = False
+            else:
+                user.is_seller = False
+                user.is_customer = True
+
             user.save()
+
             # activation mail logic here
             uidb64 = urlsafe_base64_encode(force_bytes(user.pk))
             token = default_token_generator.make_token(user)

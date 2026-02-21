@@ -3,11 +3,17 @@ from account.models import User
 from django.contrib.auth.forms import SetPasswordForm
 
 class RegistrationForm(forms.ModelForm):
+    ROLE_CHOICES = (
+        ('', 'Please select'),
+        ('seller', 'Seller'),
+        ('customer', 'Customer')
+    )
+    role = forms.ChoiceField(choices=ROLE_CHOICES, widget=forms.Select(attrs={'class': 'form-select'}), required=True)
     password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Your secure password'}))
     confirm_password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Confirm your password'}))
     class Meta:
         model = User
-        fields = ['name', 'email', 'password', 'confirm_password']
+        fields = ['name', 'email', 'password', 'confirm_password', 'role']
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter your full name'}),
             'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Enter your valid email'}),
