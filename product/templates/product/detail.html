@@ -1,0 +1,29 @@
+{% extends "core/base.html" %}
+
+{% block title %}
+    {{ product.name }}
+{% endblock title %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <h3>{{ product.name }}</h3>
+            <p>{{ product.description }}</p>
+            <p>${{ product.price }}</p>
+        </div>
+        <div>
+            {% if perms.product.change_product %}
+                <a href="{% url "product_edit" product.pk %}" class="btn btn-warning">Edit</a>
+            {% endif %}
+
+            {% if perms.product.delete_product %}
+                <a href="{% url "product_delete" product.pk %}" class="btn btn-danger">Delete</a>
+            {% endif %}
+
+            {% if perms.product.view_product %}
+                <a href="{% url "product_list" %}" class="btn btn-secondary">Back</a>
+            {% endif %}
+            
+        </div>
+    </div>
+{% endblock content %}

@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
+from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
 
 # decide if you want custom auth features or not at initial level of project before running makemigrations in middle it is painful
 
@@ -36,7 +36,7 @@ class UserManager(BaseUserManager):
         return user
         
 
-class User(AbstractBaseUser):
+class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=255, unique=True)
     name = models.CharField(max_length=255)
     is_active = models.BooleanField(default=False)
@@ -56,8 +56,14 @@ class User(AbstractBaseUser):
     def has_perm(self, perm, obj=None):
         "Does the user have a specific permission?"
         # only superuser have permission to access all data
-        return self.is_superuser
+        if self.is_superuser:
+            True
+
+        return super().has_perm(perm, obj)
     
     def has_module_perms(self, app_label):
         "Does the user have permissions to view the app `app_label`"
-        return self.is_superuser
+        if self.is_superuser:
+            True
+
+        return super().has_module_perms(app_label)

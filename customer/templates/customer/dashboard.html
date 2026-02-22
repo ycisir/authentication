@@ -5,8 +5,20 @@
 {% endblock title %}
 
 {% block content %}
-    {% if request.user.is_authenticated %}
-        <h1>Hey, {{request.user.name}}</h1>
-        <p>Customer Dashboard</p>
+    {% if user.is_authenticated %}
+        <h1>Hey, {{user.name}}</h1>
+        <div class="row">
+            <div class="col-md-12">
+                <ul>
+                    {% if perms.product.view_product %}
+                        <li><a href="{% url "product_list" %}">Products</a></li>
+                    {% endif %}
+
+                    {% if perms.product.add_product %}
+                        <li><a href="{% url "product_add" %}">Add products</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
     {% endif %}
 {% endblock content %}

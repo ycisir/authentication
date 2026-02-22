@@ -9,6 +9,7 @@ from django.contrib.auth.tokens import default_token_generator
 from django.urls import reverse
 from account.utils import send_activation_mail, password_reset_email
 from django.contrib.auth import authenticate, login
+from core.utils import assign_permission
 
 
 # register user 
@@ -37,6 +38,9 @@ def register_user(request):
                 user.is_customer = True
 
             user.save()
+
+            # assign permissions programatically logic here
+            assign_permission(user, role)
 
             # activation mail logic here
             uidb64 = urlsafe_base64_encode(force_bytes(user.pk))

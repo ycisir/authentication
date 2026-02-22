@@ -12,7 +12,7 @@ class UserModelAdmin(UserAdmin):
     fieldsets = [
         ('User Credentials', {'fields': ['email', 'password']}),
         ('Personal Information', {'fields': ['name']}),
-        ('Permissions', {'fields': ['is_active', 'is_staff', 'is_superuser', 'is_customer', 'is_seller']})
+        ('Permissions', {'fields': ['is_active', 'is_staff', 'is_superuser', 'is_customer', 'is_seller', 'groups', 'user_permissions']})
     ]
     # add_fieldsets is not a standard ModelAdmin attribute. UserModelAdmin
     # overrides get_fieldsets to use this attribute when creating a user.
@@ -32,6 +32,6 @@ class UserModelAdmin(UserAdmin):
 
     search_fields = ['email']
     ordering = ['email', 'id']
-    filter_horizontal = []
+    filter_horizontal = ['groups', 'user_permissions']
 
 admin.site.register(User, UserModelAdmin)
