@@ -1,5 +1,5 @@
-# custom authentication function based
-A custom function based authentication system build using Django.
+# Django custom authentication
+A custom function based authentication system.
 
 ### prerequisites
 - uv package manager
@@ -9,8 +9,7 @@ A custom function based authentication system build using Django.
 ### local dev setup
 ```
 git clone https://github.com/ycisir/custom-auth-fbv.git
-cd custom-auth-fbv
-uv sync 
+cd custom-auth-fbv && uv sync 
 uv run manage.py makemigrations 
 uv run manage.py migrate 
 uv run manage.py runserver
